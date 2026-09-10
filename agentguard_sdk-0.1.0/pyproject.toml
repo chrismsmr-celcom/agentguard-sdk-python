@@ -1,0 +1,47 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agentguard-sdk"
+version = "0.1.0"
+description = "Runtime security & observability guard for AI agents — intercepts LLM calls and tool calls before execution."
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.9"
+authors = [
+    { name = "Cerbere AG" }
+]
+keywords = ["ai", "agents", "security", "llm", "guardrails", "observability", "mcp"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Topic :: Security",
+]
+
+# Dépendances strictement nécessaires pour importer et utiliser le SDK.
+# Vérifié : agentguard_sdk.py s'importe et fonctionne (guard_tool_call testé
+# en local) avec uniquement ces 4 paquets installés — tout le reste
+# (cryptography pour les decisions signées, spacy pour Presidio, judges.py,
+# taint.py, budget.py, agentguard_ml.py) est optionnel et degrade
+# proprement (try/except ImportError) si absent.
+dependencies = [
+    "requests>=2.28",
+    "structlog>=23.0",
+    "tiktoken>=0.5",
+    "pydantic>=2.0",
+]
+
+[project.optional-dependencies]
+# Active la vérification des décisions signées (Ed25519) renvoyées par /api/decide.
+signing = ["cryptography>=41.0"]
+# Active la détection PII avancée (Presidio) au lieu du fallback regex.
+pii = ["presidio-analyzer", "spacy"]
+
+[project.urls]
+Homepage = "https://app.cerbereag.site"
+Repository = "https://github.com/chrismsmr-celcom/agentguard"
+
+[tool.setuptools]
+py-modules = ["agentguard_sdk"]

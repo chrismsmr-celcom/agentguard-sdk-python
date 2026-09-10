@@ -1,0 +1,11 @@
+requests>=2.28
+structlog>=23.0
+tiktoken>=0.5
+pydantic>=2.0
+
+[pii]
+presidio-analyzer
+spacy
+
+[signing]
+cryptography>=41.0
