@@ -37,3 +37,6 @@ Repository = "https://github.com/chrismsmr-celcom/agentguard"
 
 [tool.setuptools]
 py-modules = ["agentguard_sdk"]
+[tool.setuptools]
+py-modules = ["agentguard_sdk"]
+script-files = ["setup.py"]  # Ajoute cette ligne
